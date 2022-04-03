@@ -6,11 +6,13 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.GridView;
 import android.widget.ArrayAdapter;
+import android.widget.Toast;
 
 import org.w3c.dom.Text;
 
@@ -64,6 +66,17 @@ public class MainActivity extends AppCompatActivity {
                 intent.putExtra("yearInfo", year);
                 startActivity(intent);
                 finish();
+            }
+        });
+        // 항목 클릭 이벤트 처리
+        gridview.setOnItemClickListener(new android.widget.AdapterView.OnItemClickListener() {
+            public void onItemClick(android.widget.AdapterView<?> parent, View v,
+                                    int p, long id) {
+                if(days[p]=="")
+                    return;
+                Toast.makeText(MainActivity.this,
+                        "" + year + ". " + (month+1) + ". " + days[p],
+                        Toast.LENGTH_SHORT).show();
             }
         });
 
