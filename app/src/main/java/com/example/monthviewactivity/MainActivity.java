@@ -24,10 +24,25 @@ public class MainActivity extends AppCompatActivity {
         Button btnNext = (Button)findViewById(R.id.next);
         txt = (TextView)findViewById(R.id.prsent);
 
+        String[] days = makeCal();
+
+        ArrayAdapter<String> adapter
+                = new ArrayAdapter<String>(
+                        this,
+                android.R.layout.simple_list_item_1,
+                days);
+        GridView gridview = (GridView) findViewById(R.id.gridview);
+        gridview.setAdapter(adapter);
+
+    }
+
+    public String[] makeCal(){
         Calendar calendar = Calendar.getInstance();
-        int year = calendar.get(Calendar.YEAR);
-        int month = calendar.get(Calendar.MONTH);
+        int year = calendar.get(calendar.YEAR);
+        int month = calendar.get(calendar.MONTH);
+
         calendar.set(year, month, 1);
+
         int lastday = calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
         int startday = calendar.get(calendar.DAY_OF_WEEK);
         int daySize = lastday + startday - 1;
@@ -39,15 +54,7 @@ public class MainActivity extends AppCompatActivity {
         for(int i=startday-1; i<daySize; i++)
             days[i] = "" + (i - startday + 2);
 
-        ArrayAdapter<String> adapter
-                = new ArrayAdapter<String>(
-                        this,
-                android.R.layout.simple_list_item_1,
-                days);
-        GridView gridview = (GridView) findViewById(R.id.gridview);
-        gridview.setAdapter(adapter);
-
         txt.setText(String.format("%d년 %d월", year, month+1));
-
+        return days;
     }
 }
