@@ -27,11 +27,17 @@ public class MainActivity extends AppCompatActivity {
         Calendar calendar = Calendar.getInstance();
         int year = calendar.get(Calendar.YEAR);
         int month = calendar.get(Calendar.MONTH);
+        calendar.set(year, month, 1);
         int lastday = calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
+        int startday = calendar.get(calendar.DAY_OF_WEEK);
+        int daySize = lastday + startday - 1;
 
-        String[] days = new String[lastday];
-        for(int i=0; i<lastday; i++)
-            days[i] = "" + (i+1);
+        String[] days = new String[daySize];
+        for(int i=0; i<startday; i++)
+            days[i] = "";
+
+        for(int i=startday-1; i<daySize; i++)
+            days[i] = "" + (i - startday + 2);
 
         ArrayAdapter<String> adapter
                 = new ArrayAdapter<String>(
