@@ -33,8 +33,6 @@ public class MainActivity extends AppCompatActivity {
         Button btnNext = (Button) findViewById(R.id.next);
         txt = (TextView) findViewById(R.id.prsent);
 
-        Calendar calendar = Calendar.getInstance();
-
         Intent getIntent = getIntent();
         month = getIntent.getIntExtra("monthInfo", 0);
         year = getIntent.getIntExtra("yearInfo", 0);
@@ -63,6 +61,19 @@ public class MainActivity extends AppCompatActivity {
                     month = -1;
                 }
                 intent.putExtra("monthInfo", month + 1);
+                intent.putExtra("yearInfo", year);
+                startActivity(intent);
+                finish();
+            }
+        });
+        btnLast.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, MainActivity.class);
+                if (month == 0) {
+                    year--;
+                    month = 12;
+                }
+                intent.putExtra("monthInfo", month - 1);
                 intent.putExtra("yearInfo", year);
                 startActivity(intent);
                 finish();
